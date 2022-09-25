@@ -14,15 +14,15 @@ SRC_BASE="https://www.eclipse.org/downloads/download.php?file=/technology/epp/do
 DESCRIPTION="Eclipse SDK"
 HOMEPAGE="http://www.eclipse.org"
 SRC_URI="amd64? ( ${SRC_BASE}-x86_64.tar.gz&r=1 -> eclipse-java-${RNAME}-${SR}-linux-gtk-x86_64-${PV}.tar.gz )
-amd64? ( ${SRC_BASE}-aarch64.tar.gz&r=1 -> eclipse-java-${RNAME}-${SR}-linux-gtk-aarch64-${PV}.tar.gz )"
+arm64? ( ${SRC_BASE}-aarch64.tar.gz&r=1 -> eclipse-java-${RNAME}-${SR}-linux-gtk-aarch64-${PV}.tar.gz )"
 
 LICENSE="EPL-1.0"
 SLOT="4.25"
-KEYWORDS="~x86 ~amd64 ~aarch64"
+KEYWORDS="~x86 ~amd64 ~arm64"
 IUSE=""
 
 RDEPEND="
-	>=virtual/jdk-1.11
+	virtual/jdk:17
 	x11-libs/gtk+:3"
 
 S=${WORKDIR}/eclipse
