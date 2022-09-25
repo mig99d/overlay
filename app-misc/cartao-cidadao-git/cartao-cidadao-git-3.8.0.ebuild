@@ -13,6 +13,8 @@ EGIT_REPO_URI="https://github.com/amagovpt/autenticacao.gov.git"
 EGIT_COMMIT="v$PV"
 #EGIT_BRANCH="openssl-migration"
 
+SRC_URI="https://aplicacoes.autenticacao.gov.pt/apps/pteid-mw_ubuntu21_amd64.deb"
+
 LICENSE="EUPL"
 SLOT="3"
 KEYWORDS="~amd64 ~x86 ~arm64"
@@ -22,7 +24,7 @@ DEPEND="dev-lang/swig
         sys-devel/qconf
         dev-libs/xml-security-c
 	>=dev-libs/openssl-1.1.0
-	>=media-libs/openjpeg-2.4.0
+	>=media-libs/openjpeg-2.5.0
 	<media-libs/openjpeg-2.6.0
 	java? ( dev-java/openjdk:11 )"
 RDEPEND="${DEPEND}
@@ -64,7 +66,7 @@ src_prepare() {
 	use !java && rm -rf eidlibJava_Wrapper
 	popd >/dev/null
 	use !java && eapply "${FILESDIR}/pteid-mw.pro.patch"
-	eapply "${FILESDIR}/java-path.patch"
+	eapply "${FILESDIR}/java-path-${PV}.patch"
 }
 
 src_configure() {
