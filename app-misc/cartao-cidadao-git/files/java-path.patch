@@ -1,0 +1,13 @@
+--- a/eidlibJava_Wrapper/eidlibJava_Wrapper.pro	2021-07-07 19:10:38.235785546 +0200
++++ b/eidlibJava_Wrapper/eidlibJava_Wrapper.pro	2021-07-07 19:15:05.388564849 +0200
+@@ -70,8 +70,8 @@
+ INCLUDEPATH += ../common
+ INCLUDEPATH += ../cardlayer
+ INCLUDEPATH += ../eidlib
+-INCLUDEPATH += /usr/lib/jvm/java-11-openjdk-amd64/include
+-INCLUDEPATH += /usr/lib/jvm/java-11-openjdk-amd64/include/linux
++INCLUDEPATH += /etc/java-config-2/current-system-vm/include
++INCLUDEPATH += /etc/java-config-2/current-system-vm/include/linux
+ 
+ INCLUDEPATH += $${PCSC_INCLUDE_DIR}
+ 
