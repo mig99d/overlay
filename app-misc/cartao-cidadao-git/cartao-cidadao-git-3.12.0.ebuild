@@ -1,31 +1,31 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 DESCRIPTION="Portuguese Citizen Card Middleware"
 HOMEPAGE="https://github.com/amagovpt/autenticacao.gov"
 
-inherit git-r3 unpacker eutils
+inherit git-r3 unpacker
 
 EGIT_CLONE_TYPE="single"
 EGIT_REPO_URI="https://github.com/amagovpt/autenticacao.gov.git"
 EGIT_COMMIT="v$PV"
 #EGIT_BRANCH="openssl-migration"
 
-SRC_URI="https://aplicacoes.autenticacao.gov.pt/apps/pteid-mw_ubuntu21_amd64.deb"
+SRC_URI="https://www.autenticacao.gov.pt/documents/10179/11962/Autenticacao.gov_Ubuntu_20_x64.deb"
 
 LICENSE="EUPL"
 SLOT="3"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~aarch64"
 IUSE="java"
 
 DEPEND="dev-lang/swig
-        sys-devel/qconf
+        dev-build/qconf
         dev-libs/xml-security-c
 	>=dev-libs/openssl-1.1.0
 	>=media-libs/openjpeg-2.4.0
-	<=media-libs/openjpeg-2.5.0
+	<media-libs/openjpeg-2.6.0
 	java? ( dev-java/openjdk:11 )"
 RDEPEND="${DEPEND}
         >=sys-apps/pcsc-lite-1.5.0
@@ -35,20 +35,21 @@ RDEPEND="${DEPEND}
 	dev-qt/qtchooser
 	dev-libs/xml-security-c
 	dev-libs/xerces-c
-	dev-vcs/subversion
 	>=dev-libs/openssl-1.1.0
 	app-text/poppler[qt5]
 	dev-libs/libzip
 	net-misc/curl
 	dev-qt/qtgraphicaleffects
 	dev-qt/qtquickcontrols
-	dev-qt/qtquickcontrols2[widgets]
+	dev-qt/qtquickcontrols2
+	dev-libs/openpace
+	dev-libs/cJSON
 	!app-misc/autenticacao-gov-pt:2
-	!app-misc/cartao-cidadao-svn
-	dev-qt/qtconcurrent"
+	!app-misc/cartao-cidadao-svn"
 
 PATCHES=(
-	${FILESDIR}/openjpeg.h.${PV}.patch
+#	${FILESDIR}/openjpeg.h.${PV}.patch
+	${FILESDIR}/java-path-3.8.0.patch
 	)
 
 src_unpack() {
@@ -66,7 +67,6 @@ src_prepare() {
 	use !java && rm -rf eidlibJava_Wrapper
 	popd >/dev/null
 	use !java && eapply "${FILESDIR}/pteid-mw.pro.patch"
-	eapply "${FILESDIR}/java-path.patch"
 }
 
 src_configure() {
@@ -84,7 +84,7 @@ src_configure() {
 src_compile() {
 	# qmake
 	if [ -f pteid-mw.pro ]; then
-		qmake pteid-mw.pro
+		/usr/lib64/qt5/bin/qmake pteid-mw.pro
 	else
 		die "Error: compile phase failed because is missing pteid-mw.pro!"
 	fi
