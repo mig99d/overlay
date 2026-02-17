@@ -29,6 +29,8 @@ RDEPEND="${DEPEND}
 	sys-apps/pcsc-tools
 	app-crypt/ccid
 	>=dev-qt/qtcore-5
+	>=dev-qt/qtprintsupport-5
+	>=dev-qt/qtconcurrent-5
 	>=dev-libs/xml-security-c-2.0.4
 	>=dev-libs/xerces-c-3.2.4
 	>=dev-libs/openssl-3.0.8
